@@ -6,12 +6,12 @@ terminology:
 	attributes: 9 attributes that affect unit capabilities
 	critical attack: an attack that, when connected, always deals its damage to the target's hp
 	feats: personalized traits obtained through circumstances
-	fit: objects worn on this unit that affects unit capabilities
 	hp: resource bar, affects unit survival
 	hunger: resource bar, affects unit attribute growth, passively drained over time
 	line of sight: without wide vision feat, refers to tiles in a cone in front of unit
 	mood: resource bar, affects unit capabilities, passively drained through activities
 	mp: resource bar, spend to cast aethercraft or arcanescraft when applicable
+	outfit: objects worn on this unit that affects unit capabilities
 	proficiencies: how good a unit is at types of actions
 	sight range: length where unit has vision over within unobstructed line of sight
 	skills: how good a unit is at performing an activity
