@@ -1,0 +1,17 @@
+btw everything here is tentative feel free to do things differently if you feel like it
+
+step 1: hug Temmie ʕ⁠っ⁠•⁠ᴥ⁠•⁠ʔ⁠っ
+step 2: make a player character sprite that can move around on a hexagon based blank tileset
+	hex tiles oriented such that player character can move around via numpad 4 5 6 1 2 3 (top/bottom of hexes are flat)
+	start with a 10 by 10 (12 by 12 for those using base X) blank map
+	label each tile with a local map location id (x,y) where x is horizontal and y is vertical
+	
+	player character is a sentient class object that extends machine class object that extends object class object
+	object properties: unique id, object type id, sprite id, material id, quality id, owner id, durability, 
+		world map location, local map location, facing direction, weight, 
+	machine properties: action list, traits list, status list, sp bar, outfit, (durability renames to hp for machines)
+	sentient properties: mp bar, stats, attributes, proficiencies, skills, feats list, hunger bar, thirst bar, mood bar,
+	
+step 3: start adding class properties to player character, make them do various actions
+step 4: implement encounter mode for player character
+step 5: add npcs

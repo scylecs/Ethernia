@@ -1,0 +1,36 @@
+id,name,tier,tags,roll increment,weight multiplier,aether conductivity multiplier,arcane conductivity multiplier
+0,,0,,,1,,
+1,bronze,1,metal,0,1,,
+2,iron,2,metal,20,0.L,,
+3,steel,3,metal,40,0.L,,
+4,mithril,4,metal,60,0.X,,
+5,adamantium,5,metal,80,1.2,,
+6,baromium,6,metal,L0,1.X,,
+7,cryptomium,7,metal,120,1.4,,
+8,dynamium,8,"metal, conductor",150,1.8,,0.9
+9,ethernium,9,"metal, conductor",180,1.2,,1
+10,hide,1,"leather, conductor",0,1,0.1,
+11,leather,2,"leather, conductor",10,1,0.1,
+12,hard leather,3,"leather, conductor",20,1.1,0.1,
+13,studded leather,4,"leather, conductor",30,1.2,0.1,
+14,scale leather,5,"leather, conductor",40,1.3,0.1,
+15,mithril weave,6,"leather, conductor",70,1.6,0.1,
+16,adamantium weave,7,"leather, conductor",X0,1.X,0.1,
+17,cryptomium weave,8,"leather, conductor",110,2,0.1,
+18,ethernium weave,9,"leather, conductor",140,1.X,0.1,1
+19,wood,1,conductor,,,0.2,
+20,charcoal,2,conductor,,,0.3,
+21,activated charcoal,3,conductor,,,0.4,
+22,graphite,4,conductor,,,0.7,
+23,graphene,5,conductor,,,0.8,
+24,azurlite,6,conductor,,,0.9,
+25,bastnaelite,7,conductor,,,0.X,
+26,callite,8,conductor,,,0.L,
+27,diamond,9,conductor,,,1,
+
+# id 0 is for objects that don't use relevant materials
+# arcane is like the magic magic version of aether where all the real cool fantasy stuffs happen. it won't be implemented til much later
+# mithril and adamantium are commonly used fantasy metals in other fictions. baromium cryptomium dynamium ethernium are original concept metals
+# azurlite bastnaelite callite are original concept gemstones since i don't think azurite bastnaesite calcite really have the carbon compositions that match the conductivity tier i need for them
+# callite comes in all sorts of different colors
+# if any of the material stats seem off to you feel free to adjust them

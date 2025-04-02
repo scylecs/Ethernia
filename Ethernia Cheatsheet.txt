@@ -1,0 +1,144 @@
+Ethernia Cheatsheat
+
+terminology:
+	ap: action points
+	attack: any hostile action against a target
+	attributes: 9 attributes that affect unit capabilities
+	critical attack: an attack that, when connected, always deals its damage to the target's hp
+	feats: personalized traits obtained through circumstances
+	hp: resource bar, affects unit survival
+	hunger: resource bar, affects unit attribute growth, passively drained over time
+	line of sight: without wide vision feat, refers to tiles in a cone in front of unit
+	mood: resource bar, affects unit capabilities, passively drained through activities
+	mp: resource bar, spend to cast aethercraft or arcanescraft when applicable
+	outfit: objects worn on this unit that affects unit capabilities
+	proficiencies: how good a unit is at types of actions
+	sight range: length where unit has vision over within unobstructed line of sight
+	skills: how good a unit is at performing an activity
+	sp: resource bar, spend to use actions
+	stats: (physical exertion, physical precision, physical capacity, mental exertion, mental precision, mental capacity) unit properties that affect unit attribute growth
+	status: list of external effects on this unit
+	thirst: resource bar, affects unit capabilities and survival, passively drained over time
+	traits: unit type properties
+	vision: tiles within unit sight range and line of sight with no obstructions in between
+
+mechanics:
+	for each advantage stack, roll an additional time and take the highest roll. for each disadvantage stack, roll an additional time and take the lowest roll. each advantage and disadvantage cancels out
+	focus abilities have a concentration upkeep that decrements concentration cap
+	at turn start, set concentration and action points to cap, then apply status effects
+	at turn end, lose all remaining bonus action points
+	when an attacker attacks a defender, if attacker's attack value > defender's defense value and the defense is not a success, the attack counts as a success. the attacker then deals (attacker's damage roll - defender's damage reduction roll) (min 1 damage) damage to the defender's sp. if defender's sp is reduced to 0, any overflowing damage is dealt to the defender's hp.
+	if attacker's attack value > (defender's defense value + 100), attacker's attack is a critical attack
+	for each 0.1*(hp cap) hp missing, unit gains an additional wounded status. at half hp or less, unit is incapacitated.
+	can only dual wield light weapons. dual wielding the same type of weapon decrements weapon action use by 1 and applies a 0.6+0.003*(dual wield skill) multiplier to prof when calculating melee attack, melee damage, parry defense
+	a ranged attack value < 61 always misses
+	when wielding a shield, parrying attacks from where unit is facing does not cost parry tokens
+	unlocking a feat further multiplies the requirements for all feat requirements by 1.01 for each tier. cannot unlock feats if doing so would make the requirement of any existing feat higher than unit base attribute
+	upon taking damage, decrement concentration by hp lost
+	while focused, travel at half speed and cannot rest, recover wounds, use out-of-combat skills
+	only creatures within vision can become targets
+	if unit ever has insufficient concentration, deactivate the focus ability with the highest upkeep, and gain staggered (1). continue until unit has sufficient concentration. if there are no active focus abilities and unit still has insufficient concentration, gain stunned (1)
+	lower feat id's on-condition effects are applied first
+	muted statuses will still be gained and lost as usual, but otherwise do not apply their internal effects to the unit
+	while prone: melee attacks and defense against melee attacks have disadvantage, ranged attacks againts this unit has disadvantage, cannot step or dash, can crawl
+	light weapon weight <= t
+	heavy weapon weight > 2*t
+	max weapon weight <= 3*t
+
+equipment types:
+	quality: awful (-20) poor(-10) normal(0) fair(+10) good(+20) great(+30) excellent(+40) exceptional(+50) exquisite(+60)
+	melee weapons: (blunt pierce slash) * (self(0 range) short(1 range) medium(2 range) long(3 range)) * (light(4 ap) average(5 ap) heavy(6 ap))
+	ranged weapons: bow(6 ap) crossbow(3 reload 3 ap) repeating crossbow (9 reload 6 ammo)
+	throw weapons: light(4 ap) average(5 ap) heavy(6 ap)
+
+mid game estimate stats: equipment roll ~160, 60 attributes, 60 proficiencies, 60 skills
+
+combat equations:
+	hp cap = 600 + 10*(base c)
+	sp cap = 300 + 6*(base e)
+	mp cap = 300 + 6*(base w)
+	concentration cap = 10*psy
+	sp rec / sec = end
+	mp rec / sec = wil
+	initiative = min(1d(dex),1d(int))
+	physical melee pierce attack = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
+	physical melee slash attack = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
+	physical melee blunt attack = (1 + 0.01*prof)*(weapon roll) + 1d(str + dex)
+	physical ranged bow attack = (1 + 0.01*prof)*(weapon roll) + 1d(str + dex + int)
+	physical ranged crossbow attack = (1 + 0.01*prof)*(weapon roll) + 1d(dex + 2*int)
+	physical ranged throw attack = (1 + 0.01*prof)*1d(str + dex + int)
+	physical melee shove attack = (1 + 0.01*prof)*1d(str + dex + spd)
+	physical melee disarm attack = (1 + 0.01*prof)*1d(2*dex + int)
+	physical melee trip attack = (1 + 0.01*prof)*1d(2*dex + int)
+	physical melee pierce damage = (1 + 0.01*prof)*1d(dex + spd + agi)
+	physical melee slash damage = (1 + 0.01*prof)*1d(str + dex + agi)
+	physical melee blunt damage = (1 + 0.01*prof)*(weapon weight) + 1d(2*str + spd)
+	physical ranged bow damage = (1 + 0.01*prof)*1d(2*str + dex)
+	physical ranged crossbow damage = (1 + 0.01*prof)*1d(3*dex)
+	physical ranged throw damage = = (1 + 0.01*prof)*(weapon weight) + 1d(2*str + dex)
+	parry defense = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
+	evade defense = (1 + 0.01*prof)*1d(spd + agi + int)
+	physical damage reduction = (1 + 0.01*prof)*(armor roll)
+	sight range = 30 + 0.3*i
+
+misc equations:
+	
+
+charStat = [0 physical exertion, 1 physical precision, 2 physical capacity, 3 mental exertion, 4 mental precision, 5 mental capacity]
+charAtt = [0 strength, 1 dexterity, 2 constitution, 3 speed, 4 agility, 5 endurance, 6 psyche, 7 intelligence, 8 will]
+charWepProf = [0 melee blunt, 1 melee pierce, 2 melee slash, 3 ranged bow, 4 ranged crossbow]
+charArmProf = [0 leather, 1 chain, 2 plate]
+charAethProf = [0 flame, 1 frost, 2 wind]
+charArcProf = [0 lightning, 1 fire, 2 ice, 3 sonic, 4 water, 5 air]
+charSkill = [0 alchemy, 1 cooking, 2 divination, 3 enchanting, 4 engineering, 5 fishing, 
+	6 foraging, 7 gardening, 8 gliding, 9 herblore, X jewlcrafting, L literacy, 
+	10 masonry, 11 tending, 12 mining, 13 performing, 14 petting, 15 skulduggery, 
+	16 ranching, 17 riding, 18 sailing, 19 scavenging, 1X smithing, 1L speech, 
+	20 stealth, 21 survival, 22 swimming, 23 tailoring, 24 traveling, 25 woodworking]
+charFeat = []
+
+object status list:
+	damaged (n): decrement weapon or armor roll by d(10*n)
+
+creature status list:
+	bleeding (n): decrement capacitate hp by n every sec, lasts until treated
+	fervor (n): increment weapon roll by d(10*n) for melee attacks, decrement n by ⌈0.6*n⌉ at turn end
+	frenzy (n): increment agi multiplier by 0.1*n for melee attacks, decrement n by ⌈0.6*n⌉ at turn end
+	impulse (n): increment dex multiplier by 0.1*n for ranged attacks, decrement n by ⌈0.6*n⌉ at turn end
+	injured (n): multiplies effective attribute by 1-0.2*n, lasts until treated
+	rage (n): increment str multiplier by 0.1*n for melee attacks, decrement n by ⌈0.6*n⌉ at turn end
+	recovering (n): increment hp by 0.1*con after a complete long rest, then lose status
+	staggered (n): upon gaining status, if n >= 10, decrement n by 10 and gain stunned (1). decrement n action points after turn start action points regeneration, then lose status
+	stunned (n): upon gaining status, disables all focus abilities. unit cannot use actions, lose status at turn end
+	wounded (n): multiplies effective attribute by 1-0.2*n, lasts until infliction condition is invalidated
+	berserker (n): mute statuses: incapacitated injured staggered stunned wounded; cannot use defense tokens; cannot use focus abilities; decrement melee blunt attack action points use by 2; decrement dash action points use by 1; all action points are automatically spent dashing towards and melee attacking the nearest visible creature at random; lose status when there are no visible creature remaining
+	maimed (n): decrement spd multiplier by 0.1*n for all actions
+	steady (n): increment dex multiplier by 0.1*n for ranged attacks, lose status if moved from tile
+	parry (n): when attacked from within line of sight, may decrement n by 1 to defend against said attack
+	evade (n): when attacked from within line of sight, may decrement n by 1 to evade said attack
+	death by four cuts (n): when n reaches 4, unit dies; removed when unmarked by reaper's mark
+
+combat action list:
+	activate focus abilities (1): activates focus abilities (can activate multiple at once)
+	deactivate focus ability (0): deactivates a focus ability
+	mend (12): treats bleeding and decrements injured status by 1, inflict recovering (1)
+	crawl (6): move to an adjacent tile
+	dash (2+n): move int(0.03*s*n+1) tiles
+	disarm (weapon action + 1): disarm target
+	prepare parry (weapon action): gain parry (1)
+	prepare evasion (3): gain evasion (1)
+	feint (weapon action - 1): feint with a melee weapon. if rolled feint value (1 + prof/100)*(weapon roll) is greater than target int value, target will treat this action as an attack
+	melee attack (weapon action): melee attack with weapon
+	pick up (3): pick up an object on the ground
+	ranged attack (weapon action): ranged attack with ranged weapon
+	shove (3): move target back up to 0.03*t tiles
+	step (2): move to an adjacent tile
+	stow (2): stow something on hand to unit's inventory
+	throw (4): throw object
+	trip (weapon action + 1): trip target
+	turn (1): turn towards a direction
+	twinned defend (weapon action): generate a parry defense token without dual wielding penalty
+	
+
+weapon stats:
+	bow, crossbow, sling, polearm, club, fist, dagger, short sword, sword, long sword, great sword, staff, mace, claw, rapier, lance, katana, spear, axe, scythe, braces, buckler, shield

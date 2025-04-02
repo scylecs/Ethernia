@@ -1,0 +1,18 @@
+id,name,tags,usable class,ap cost,sp cost,technical desc
+,hold,physical,sentient,3,0,hold object from unit's inventory or the ground if it weighs <= 6*str
+,stow,physical,sentient,2,0,stow something being held into inventory (when not in encounter mode using the hold action on something on the ground automatically stows it)
+,step,physical,machine,2,0,move to an adjacent tile
+,dash,physical,sentient,2+n,10,move ⌊0.03*spd*n+1⌋ tiles
+,crawl,physical,sentient,6,10,move to an adjacent tile
+,turn,physical,machine,1,0,turn towards a direction
+,normal attack,"physical, attack",sentient,weapon,10,attack a target using the primary attack mode of unit's weapon
+,damage,physical,,0,0,cannot use manually; automatically follows after a successful attack
+,mend,"physical, non-encounter",sentient,,,cures some of target statuses (specified in statuses) and inflict recovering (⌊0.1*prof⌋)
+,quick mend,physical,sentient,10,10,cures some of target statuses (specified in statuses)
+,prepare parry,mental,sentient,weapon,0,gain parry (1)
+,prepare evasion,mental,sentient,3,0,gain evasion (1)
+,parry,physical,sentient,0,10,on attacked: may lose parry (1) to parry the attack
+,evade,physical,sentient,0,10,on attacked: may lose evasion (1) to evade the attack
+
+# no id yet, reorder the actions based on how often they'll be used
+# status stuffs will be implemented later

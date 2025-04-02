@@ -1,0 +1,13 @@
+id,name,roll increment
+0,,
+1,awful,-20
+2,poor,-10
+3,regular,0
+4,fair,10
+5,good,20
+6,great,30
+7,excellent,40
+8,exceptional,50
+9,exquisite,60
+
+# id 0 is for objects that don't use qualities

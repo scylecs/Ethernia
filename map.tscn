@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvx4kpqcbasmd"]
+
+[ext_resource type="Texture2D" uid="uid://43ggjeoo2c3u" path="res://Tiles1.png" id="1_wijl4"]
+[ext_resource type="Script" uid="uid://1mtsl6miflec" path="res://map.gd" id="2_e0an3"]
+[ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://player.tscn" id="3_e0an3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
+texture = ExtResource("1_wijl4")
+texture_region_size = Vector2i(50, 50)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_urblq"]
+tile_shape = 3
+tile_offset_axis = 1
+tile_size = Vector2i(50, 50)
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_e0an3")
+
+[node name="Map" type="TileMapLayer" node_paths=PackedStringArray("player")]
+skew = -0.174533
+tile_set = SubResource("TileSet_urblq")
+script = ExtResource("2_e0an3")
+player = NodePath("Player")
+
+[node name="Player" parent="." instance=ExtResource("3_e0an3")]
+skew = 0.174533
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 3.0
