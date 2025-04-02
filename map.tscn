@@ -40,6 +40,7 @@ script = ExtResource("2_e0an3")
 player = NodePath("Player")
 
 [node name="Player" parent="." instance=ExtResource("3_e0an3")]
+position = Vector2(-5, -25)
 skew = 0.174533
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
