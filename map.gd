@@ -7,14 +7,32 @@ var height = 64
 
 # Reference to the player character
 @export var player: Node2D
-@export var speed = 400 # How fast the player will move (pixels/sec). 
+@export var location_marker: TileMapLayer
 var screen_size # Size of the game window.
 var input_buffer = [0,0,0,0]
 var loaded_chunks = []
 var player_tile_pos: Vector2
 var moved: bool
 var tosnap: Vector2
-var animation: AnimatedSprite2D
+
+func _ready():
+	moved = false
+	tosnap = Vector2(0,0)
+	# Set random seeds for noise variation
+	moisture.seed = randi()
+	temperature.seed = randi()
+	screen_size = get_viewport_rect().size
+
+func _process(_delta):
+	# Convert the player's position to tile coordinates
+	player_tile_pos = local_to_map(player.position)
+	generate_chunk(player_tile_pos, false)
+
+func _physics_process(_delta):
+	if not moved and tosnap.length() > 0:
+		var tween = player.create_tween()
+		tween.tween_property(player, "position", player.position + tosnap, 0.15)
+		tosnap = Vector2.ZERO;
 
 # Called every time there's an input.
 func _input(event):
@@ -29,27 +47,20 @@ func _input(event):
 	velocity = map_to_local(velocity) - map_to_local(Vector2i(0,0))
 	
 	if velocity.length() > 0:
+		location_marker.highlighted = [local_to_map(player.position + velocity + Vector2(5,25))]
 		tosnap = velocity
 		print(tosnap)
 	
-func _ready():
-	moved = false
-	tosnap = Vector2(0,0)
-	# Set random seeds for noise variation
-	moisture.seed = randi()
-	temperature.seed = randi()
-	animation = get_node("Player/AnimatedSprite2D")
-	screen_size = get_viewport_rect().size
-
-func _process(_delta):
-	# Convert the player's position to tile coordinates
-	player_tile_pos = local_to_map(player.position)
-	generate_chunk(player_tile_pos, false)
-
-func _physics_process(_delta):
-	if not moved:
-		tosnap = tosnap / 2
-		player.position += tosnap
+func bufferinit(event, action, key):
+	if event.is_action_pressed(action):
+		input_buffer[key] += 1
+		moved = true
+		
+	if event.is_action_released(action):
+		player.position = map_to_local(player_tile_pos) + Vector2(5,-25)
+		input_buffer[key] -= 1
+		moved = false
+		location_marker.highlighted = []
 
 func generate_chunk(pos, unload):
 	for x in range(width):
@@ -59,7 +70,7 @@ func generate_chunk(pos, unload):
 			var tile = Vector2(round(3 * (moist + 10) / 20), round(3 * (temp + 10) / 20))
 			
 			if unload:
-				set_cell(Vector2i(pos.x - (width/2) + x, pos.y - (height/2) + y), 0, Vector2(-1,-1))
+				set_cell(Vector2i(pos.x - (width/2) + x, pos.y - (height/2) + y), -1, Vector2(-1,-1))
 			else:
 				set_cell(Vector2i(pos.x - (width/2) + x, pos.y - (height/2) + y), 0, tile)
 			
@@ -71,19 +82,9 @@ func unload_distant_chunks(player_pos):
 	var unload_distance_threshold = (width * 2) + 1
 
 	for chunk in loaded_chunks:
-		var displacement = Vector2(chunk) - player_pos
-		var distance = sqrt(displacement.dot(displacement))
+		var displacement: Vector2 = Vector2(chunk) - player_pos
+		var distance = displacement.length()
 
 		if distance > unload_distance_threshold:
 			generate_chunk(chunk, true)
 			loaded_chunks.erase(chunk)
-
-func bufferinit(event, action, key):
-	if event.is_action_pressed(action):
-		input_buffer[key] += 1
-		animation.play()
-		moved = true
-	if event.is_action_released(action):
-		input_buffer[key] -= 1
-		animation.stop()
-		moved = false
