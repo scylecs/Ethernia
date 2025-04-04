@@ -60,7 +60,7 @@ combat equations:
 	concentration cap = 10*psy
 	sp rec / sec = end
 	mp rec / sec = wil
-	initiative = min(1d(dex),1d(int))
+	initiative = min(1d(dex),1d(agi),1d(int)) * 1d(int)
 	physical melee pierce attack = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
 	physical melee slash attack = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
 	physical melee blunt attack = (1 + 0.01*prof)*(weapon roll) + 1d(str + dex)
@@ -76,8 +76,8 @@ combat equations:
 	physical ranged bow damage = (1 + 0.01*prof)*1d(2*str + dex)
 	physical ranged crossbow damage = (1 + 0.01*prof)*1d(3*dex)
 	physical ranged throw damage = = (1 + 0.01*prof)*(weapon weight) + 1d(2*str + dex)
-	parry defense = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
-	evade defense = (1 + 0.01*prof)*1d(spd + agi + int)
+	physical parry defense = (1 + 0.01*prof)*(weapon roll) + 1d(dex + agi + int)
+	physical evade defense = (1 + 0.01*prof)*1d(spd + agi + int)
 	physical damage reduction = (1 + 0.01*prof)*(armor roll)
 	sight range = 30 + 0.3*i
 
