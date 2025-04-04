@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://43ggjeoo2c3u" path="res://Tiles1.png" id="1_wijl4"]
 [ext_resource type="Script" uid="uid://1mtsl6miflec" path="res://map.gd" id="2_e0an3"]
 [ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://player.tscn" id="3_e0an3"]
-[ext_resource type="Script" path="res://location_marker.gd" id="4_p5pve"]
+[ext_resource type="Script" uid="uid://c33rtyaicel5u" path="res://location_marker.gd" id="4_p5pve"]
 [ext_resource type="Texture2D" uid="uid://cwraaucxb2n1b" path="res://Tiles2.png" id="4_urblq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
