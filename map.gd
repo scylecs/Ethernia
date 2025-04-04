@@ -21,11 +21,16 @@ func _ready():
 	moisture.seed = randi()
 	temperature.seed = randi()
 	screen_size = get_viewport_rect().size
+	
+	#spawn generation	
+	player_tile_pos = local_to_map(player.position)
+	generate_chunk(player_tile_pos, false)
 
 func _process(_delta):
 	# Convert the player's position to tile coordinates
 	player_tile_pos = local_to_map(player.position)
-	generate_chunk(player_tile_pos, false)
+	if player.moved:
+		generate_chunk(player_tile_pos, false)
 
 func _physics_process(_delta):
 	if not player.moved and tosnap.length() > 0:
@@ -87,5 +92,5 @@ func unload_distant_chunks(player_pos):
 		var distance = displacement.length()
 
 		if distance > unload_distance_threshold:
-			generate_chunk(chunk, true)
+			await generate_chunk(chunk, true)
 			loaded_chunks.erase(chunk)
