@@ -12,11 +12,10 @@ var screen_size # Size of the game window.
 var input_buffer = [0,0,0,0,0,0]
 var loaded_chunks = []
 var player_tile_pos: Vector2
-var moved: bool
 var tosnap: Vector2
 
 func _ready():
-	moved = false
+	player.moved = false
 	tosnap = Vector2(0,0)
 	# Set random seeds for noise variation
 	moisture.seed = randi()
@@ -29,7 +28,7 @@ func _process(_delta):
 	generate_chunk(player_tile_pos, false)
 
 func _physics_process(_delta):
-	if not moved and tosnap.length() > 0:
+	if not player.moved and tosnap.length() > 0:
 		var tween = player.create_tween()
 		tween.tween_property(player, "position", player.position + tosnap, 0.15)
 		tosnap = Vector2.ZERO;
@@ -56,12 +55,12 @@ func _input(event):
 func bufferinit(event, action, key):
 	if event.is_action_pressed(action):
 		input_buffer[key] += 1
-		moved = true
+		player.moved = true
 		
 	if event.is_action_released(action):
 		player.position = map_to_local(player_tile_pos) + Vector2(5,-25)
 		input_buffer[key] -= 1
-		moved = false
+		player.moved = false
 		location_marker.highlighted = []
 
 func generate_chunk(pos, unload):
