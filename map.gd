@@ -8,8 +8,8 @@ var height = 64
 # Reference to the player character
 @export var player: Node2D
 @export var location_marker: TileMapLayer
+@export var inputs: Camera2D
 var screen_size # Size of the game window.
-var input_buffer = [0,0,0,0,0,0]
 var loaded_chunks = []
 var player_tile_pos: Vector2
 var tosnap: Vector2
@@ -48,8 +48,8 @@ func _input(event):
 	bufferinit(event, "move_lup", 5)
 	
 	var velocity = Vector2.ZERO # The player's movement vector.
-	velocity.x += (input_buffer[0] + input_buffer[4] - input_buffer[1] - input_buffer[5])
-	velocity.y += (input_buffer[2] - input_buffer[3] - input_buffer[4] - input_buffer[5])
+	velocity.x += (inputs.buffer[0] + inputs.buffer[4] - inputs.buffer[1] - inputs.buffer[5])
+	velocity.y += (inputs.buffer[2] - inputs.buffer[3] - inputs.buffer[4] - inputs.buffer[5])
 	velocity = map_to_local(velocity) - map_to_local(Vector2i(0,0))
 	
 	if velocity.length() > 0:
@@ -59,12 +59,12 @@ func _input(event):
 	
 func bufferinit(event, action, key):
 	if event.is_action_pressed(action):
-		input_buffer[key] += 1
+		inputs.buffer[key] += 1
 		player.moved = true
 		
 	if event.is_action_released(action):
 		player.position = map_to_local(player_tile_pos) + Vector2(5,-25)
-		input_buffer[key] -= 1
+		inputs.buffer[key] -= 1
 		player.moved = false
 		location_marker.highlighted = []
 
