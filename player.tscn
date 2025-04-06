@@ -24,18 +24,6 @@ animations = [{
 }, {
 "duration": 1.5,
 "texture": ExtResource("4_sweqy")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_1jxqw")
-}, {
-"duration": 1.5,
-"texture": ExtResource("3_hqtel")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_2hs0m")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_dw050")
 }],
 "loop": false,
 "name": &"tp",

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://do35iq83opjub"]
+
+[ext_resource type="Script" uid="uid://b50ythmkp4u8y" path="res://player_creation.gd" id="1_b3vy0"]
+[ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://player.tscn" id="1_ibcdi"]
+
+[node name="playerCreation" type="Node2D" node_paths=PackedStringArray("ui_container")]
+script = ExtResource("1_b3vy0")
+ui_container = NodePath("CanvasLayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Player" parent="CanvasLayer" instance=ExtResource("1_ibcdi")]
+z_index = 1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.769032, 0.722265, 0.386927, 1)
