@@ -15,10 +15,10 @@ var loaded_chunks = []
 var player_tile_pos: Vector2
 var tosnap: Vector2
 """
-@export var player: Node2D
+#@export var player: Node2D
 @export var inputs: Camera2D
 func _ready():
-	player.moved = false
+#	player.moved = false
 	"""
 	tosnap = Vector2(0,0)
 	# Set random seeds for noise variation
@@ -63,7 +63,7 @@ func _input(event):
 func bufferinit(event, action, key):
 	if event.is_action_pressed(action):
 		inputs.buffer[key] += 1
-		player.moved = true
+#		player.moved = true
 		loc_coord[0] += (inputs.buffer[0] + inputs.buffer[4] - inputs.buffer[1] - inputs.buffer[5])
 		loc_coord[1] += (inputs.buffer[1] + inputs.buffer[2] - inputs.buffer[3] - inputs.buffer[4])
 		print(loc_coord)
@@ -72,7 +72,7 @@ func bufferinit(event, action, key):
 #		player.position = map_to_local(player_tile_pos) + Vector2(5,-25)
 #		print(player_tile_pos)
 		inputs.buffer[key] -= 1
-		player.moved = false
+#		player.moved = false
 #		location_marker.highlighted = []
 """
 func generate_chunk(pos, unload):
