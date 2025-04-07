@@ -55,7 +55,6 @@ func _input(event):
 	if velocity.length() > 0:
 		location_marker.highlighted = [local_to_map(player.position + velocity + Vector2(5,25))]
 		tosnap = velocity
-		print(tosnap)
 	
 func bufferinit(event, action, key):
 	if event.is_action_pressed(action):
@@ -64,6 +63,7 @@ func bufferinit(event, action, key):
 		
 	if event.is_action_released(action):
 		player.position = map_to_local(player_tile_pos) + Vector2(5,-25)
+		print(player_tile_pos)
 		inputs.buffer[key] -= 1
 		player.moved = false
 		location_marker.highlighted = []
