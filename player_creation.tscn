@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://do35iq83opjub"]
+[gd_scene load_steps=4 format=3 uid="uid://do35iq83opjub"]
 
 [ext_resource type="Script" uid="uid://b50ythmkp4u8y" path="res://player_creation.gd" id="1_b3vy0"]
 [ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://player.tscn" id="1_ibcdi"]
+[ext_resource type="Script" uid="uid://04tbg31xeaxd" path="res://player_creation_gui.gd" id="2_cikci"]
 
-[node name="playerCreation" type="Node2D" node_paths=PackedStringArray("ui_container")]
+[node name="playerCreation" type="Node2D" node_paths=PackedStringArray("ui_container", "player")]
 script = ExtResource("1_b3vy0")
 ui_container = NodePath("CanvasLayer")
+player = NodePath("CanvasLayer/Player")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
+script = ExtResource("2_cikci")
 
 [node name="Player" parent="CanvasLayer" instance=ExtResource("1_ibcdi")]
 z_index = 1
@@ -17,3 +20,31 @@ z_index = 1
 offset_right = 40.0
 offset_bottom = 40.0
 color = Color(0.769032, 0.722265, 0.386927, 1)
+
+[node name="Prev" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -15.5
+offset_right = 11.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "< "
+
+[node name="Next" type="Button" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -11.0
+offset_top = -15.5
+offset_right = 11.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "> "

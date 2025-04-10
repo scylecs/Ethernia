@@ -14,7 +14,7 @@ func _ready() -> void:
 			print("JSON Parse Error: ", json.get_error_message(), " in ", json_string, " at line ", json.get_error_line())
 			continue
 		var player_data = json.data
-
+		
 func _process(delta: float) -> void:
 	if moved and not played:
 		animation.play()
@@ -22,6 +22,17 @@ func _process(delta: float) -> void:
 	if not moved and played:
 		if animation.frame_progress < 1:
 			animation.play()
-		else:	
+		else:
 			animation.play_backwards()
 			played = false
+
+func player():
+	var player_props = {
+		"body_shape" : get_node("Body/AnimatedSprite2D").get_sprite_frames(),
+		"body_color" : get_node("Body/AnimatedSprite2D").get_animation(),
+		"eyes_shape" : get_node("Eyes/AnimatedSprite2D").get_sprite_frames(),
+		"eyes_color" : get_node("Eyes/AnimatedSprite2D").get_animation(),
+		"hair_shape" : get_node("Hair/AnimatedSprite2D").get_sprite_frames(),
+		"hair_color" : get_node("Hair/AnimatedSprite2D").get_animation(),
+		}
+	return player_props

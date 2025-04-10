@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Ethernia"
 config/description="silly rpg"
-run/main_scene="uid://dvx4kpqcbasmd"
+run/main_scene="uid://do35iq83opjub"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
