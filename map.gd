@@ -1,80 +1,55 @@
 extends TileMapLayer
 
-var loc_coord = [0,0]
-"""
 var moisture = FastNoiseLite.new()
 var temperature = FastNoiseLite.new()
 var width = 64
 var height = 64
 
-
 # Reference to the player character
-@export var location_marker: TileMapLayer
 var screen_size # Size of the game window.
 var loaded_chunks = []
-var player_tile_pos: Vector2
-var tosnap: Vector2
-"""
+var tosnap = []
+var tile_pos: Vector2
+
 @export var player: Node2D
 @export var inputs: Camera2D
+
 func _ready():
-#	player.moved = false
-	"""
-	tosnap = Vector2(0,0)
+	player.moved = false
+	
 	# Set random seeds for noise variation
 	moisture.seed = randi()
 	temperature.seed = randi()
 	screen_size = get_viewport_rect().size
-	
+
 	#spawn generation	
-	player_tile_pos = local_to_map(player.position)
-	generate_chunk(player_tile_pos, false)
+	tile_pos = local_to_map(player.position)
+	generate_chunk(tile_pos, false)
 
 func _process(_delta):
+	var right = inputs.buffer[0] + inputs.buffer[4] - inputs.buffer[5] - inputs.buffer[1]
+	var up = inputs.buffer[2] - inputs.buffer[3] - inputs.buffer[4] - inputs.buffer[5]
+
+	if right != 0 or up != 0:
+		tosnap.append(map_to_local(Vector2i(right, up)) - map_to_local(Vector2i(0, 0)))
+		player.moved = true
+		for i in range(inputs.buffer.size()):
+			inputs.buffer[i] = max(inputs.buffer[i] - 1, 0)
+
 	# Convert the player's position to tile coordinates
-	player_tile_pos = local_to_map(player.position)
-	if player.moved:
-		generate_chunk(player_tile_pos, false)
+	if tosnap.size() > 0:
+		tile_pos = local_to_map(player.position)
+		generate_chunk(tile_pos, false)
 
 func _physics_process(_delta):
-	if not player.moved and tosnap.length() > 0:
+	if tosnap.size() > 0:
 		var tween = player.create_tween()
-		tween.tween_property(player, "position", player.position + tosnap, 0.15)
-		tosnap = Vector2.ZERO;
-"""
-# Called every time there's an input.
-func _input(event):
-	bufferinit(event, "move_right", 0)
-	bufferinit(event, "move_left", 1)
-	bufferinit(event, "move_down", 2)
-	bufferinit(event, "move_up", 3)
-	bufferinit(event, "move_rup", 4)
-	bufferinit(event, "move_lup", 5)
-	"""
-	var velocity = Vector2.ZERO # The player's movement vector.
-	velocity.x += (inputs.buffer[0] + inputs.buffer[4] - inputs.buffer[1] - inputs.buffer[5])
-	velocity.y += (inputs.buffer[2] - inputs.buffer[3] - inputs.buffer[4] - inputs.buffer[5])
-	velocity = map_to_local(velocity) - map_to_local(Vector2i(0,0))
-	
-	if velocity.length() > 0:
-		location_marker.highlighted = [local_to_map(player.position + velocity +11 Vector2(5,25))]
-		tosnap = velocity
-	"""
-func bufferinit(event, action, key):
-	if event.is_action_pressed(action):
-		inputs.buffer[key] += 1
-	#	player.moved = true
-		loc_coord[0] += (inputs.buffer[0] + inputs.buffer[4] - inputs.buffer[1] - inputs.buffer[5])
-		loc_coord[1] += (inputs.buffer[1] + inputs.buffer[2] - inputs.buffer[3] - inputs.buffer[4])
-		print(loc_coord)
-		
-	if event.is_action_released(action):
-#		player.position = map_to_local(player_tile_pos) + Vector2(5,-25)
-#		print(player_tile_pos)
-		inputs.buffer[key] -= 1
-	#	player.moved = false
-#		location_marker.highlighted = []
-"""
+		tween.tween_property(player, "position", player.position + tosnap[0], 0.15)
+		tosnap.pop_at(0)
+		player.moved = false
+	elif player.moved:
+		player.position = map_to_local(local_to_map(player.position)) + Vector2(5, 25)
+
 func generate_chunk(pos, unload):
 	for x in range(width):
 		for y in range(height):
@@ -95,10 +70,9 @@ func unload_distant_chunks(player_pos):
 	var unload_distance_threshold = (width * 2) + 1
 
 	for chunk in loaded_chunks:
-		var displacement: Vector2 = Vector2(chunk) - player_pos
+		var displacement: Vector2 = Vector2(chunk) - Vector2(player_pos)
 		var distance = displacement.length()
 
 		if distance > unload_distance_threshold:
 			await generate_chunk(chunk, true)
 			loaded_chunks.erase(chunk)
-"""

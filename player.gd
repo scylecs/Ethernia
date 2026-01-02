@@ -3,7 +3,7 @@ extends Area2D
 const body_shapes = 3
 
 var moved: bool
-var played: bool = false
+var played = false
 @export var animation: AnimatedSprite2D
 var player_data
 
@@ -12,11 +12,10 @@ func _process(delta: float) -> void:
 		animation.play()
 		played = true
 	if not moved and played:
-		if animation.frame_progress < 1:
-			animation.play()
-		else:
-			animation.play_backwards()
-			played = false
+		animation.play_backwards()
+		played = false
+	elif not moved and not played:
+		animation.stop()
 
 func player_save():
 	var player_props = {

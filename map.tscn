@@ -47,15 +47,17 @@ tile_offset_axis = 1
 tile_size = Vector2i(50, 50)
 sources/1 = SubResource("TileSetAtlasSource_iw27f")
 
-[node name="Map" type="TileMapLayer" node_paths=PackedStringArray("inputs")]
+[node name="Map" type="TileMapLayer" node_paths=PackedStringArray("player", "inputs")]
 skew = -0.174533
 tile_set = SubResource("TileSet_urblq")
 script = ExtResource("2_e0an3")
+player = NodePath("Player")
 inputs = NodePath("Player/Camera2D")
 
-[node name="LocationMarker" type="TileMapLayer" parent="."]
+[node name="LocationMarker" type="TileMapLayer" parent="." node_paths=PackedStringArray("map")]
 tile_set = SubResource("TileSet_e0an3")
 script = ExtResource("4_p5pve")
+map = NodePath("..")
 
 [node name="Player" parent="." instance=ExtResource("3_e0an3")]
 position = Vector2(-5, -25)
