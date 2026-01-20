@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dvx4kpqcbasmd"]
+[gd_scene load_steps=12 format=3 uid="uid://dvx4kpqcbasmd"]
 
 [ext_resource type="Texture2D" uid="uid://43ggjeoo2c3u" path="res://Tiles1.png" id="1_wijl4"]
 [ext_resource type="Script" uid="uid://1mtsl6miflec" path="res://map.gd" id="2_e0an3"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://c33rtyaicel5u" path="res://location_marker.gd" id="4_p5pve"]
 [ext_resource type="Texture2D" uid="uid://cwraaucxb2n1b" path="res://Tiles2.png" id="4_urblq"]
 [ext_resource type="Script" uid="uid://2dyaxkj50c6a" path="res://inputs.gd" id="6_iw27f"]
+[ext_resource type="Script" uid="uid://7mqqob28oi0u" path="res://change_scene.gd" id="7_71pa8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
 texture = ExtResource("1_wijl4")
@@ -67,3 +68,10 @@ skew = 0.174533
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
 script = ExtResource("6_iw27f")
+
+[node name="Button" type="Button" parent="Player/Camera2D" node_paths=PackedStringArray("Root")]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Change Scene!"
+script = ExtResource("7_71pa8")
+Root = NodePath("../../..")

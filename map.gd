@@ -42,13 +42,11 @@ func _process(_delta):
 		generate_chunk(tile_pos, false)
 
 func _physics_process(_delta):
+	var tween = player.create_tween()
 	if tosnap.size() > 0:
-		var tween = player.create_tween()
-		tween.tween_property(player, "position", player.position + tosnap[0], 0.15)
+		tween.tween_property(player, "position", (map_to_local(local_to_map(player.position)) - Vector2(-5, 25)) + tosnap[0], 0.15)
 		tosnap.pop_at(0)
 		player.moved = false
-	elif player.moved:
-		player.position = map_to_local(local_to_map(player.position)) + Vector2(5, 25)
 
 func generate_chunk(pos, unload):
 	for x in range(width):
