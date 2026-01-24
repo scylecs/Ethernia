@@ -1,15 +1,15 @@
 [gd_scene load_steps=12 format=3 uid="uid://dvx4kpqcbasmd"]
 
-[ext_resource type="Texture2D" uid="uid://43ggjeoo2c3u" path="res://Tiles1.png" id="1_wijl4"]
-[ext_resource type="Script" uid="uid://1mtsl6miflec" path="res://map.gd" id="2_e0an3"]
-[ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://player.tscn" id="3_e0an3"]
-[ext_resource type="Script" uid="uid://c33rtyaicel5u" path="res://location_marker.gd" id="4_p5pve"]
-[ext_resource type="Texture2D" uid="uid://cwraaucxb2n1b" path="res://Tiles2.png" id="4_urblq"]
-[ext_resource type="Script" uid="uid://2dyaxkj50c6a" path="res://inputs.gd" id="6_iw27f"]
-[ext_resource type="Script" uid="uid://7mqqob28oi0u" path="res://change_scene.gd" id="7_71pa8"]
+[ext_resource type="Texture2D" uid="uid://43ggjeoo2c3u" path="res://Tiles1.png" id="1_4cvdr"]
+[ext_resource type="Script" uid="uid://1mtsl6miflec" path="res://src/map/map.gd" id="2_cti7x"]
+[ext_resource type="Texture2D" uid="uid://cwraaucxb2n1b" path="res://Tiles2.png" id="3_3ubge"]
+[ext_resource type="Script" uid="uid://c33rtyaicel5u" path="res://src/map/location_marker.gd" id="4_osvph"]
+[ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://src/player.tscn" id="5_40mr5"]
+[ext_resource type="Script" uid="uid://2dyaxkj50c6a" path="res://src/map/inputs.gd" id="6_qprrh"]
+[ext_resource type="Script" uid="uid://7mqqob28oi0u" path="res://src/map/change_scene.gd" id="7_cti7x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_e0an3"]
-texture = ExtResource("1_wijl4")
+texture = ExtResource("1_4cvdr")
 texture_region_size = Vector2i(50, 50)
 0:0/0 = 0
 1:0/0 = 0
@@ -38,7 +38,7 @@ terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_e0an3")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iw27f"]
-texture = ExtResource("4_urblq")
+texture = ExtResource("3_3ubge")
 texture_region_size = Vector2i(50, 50)
 0:0/0 = 0
 
@@ -51,27 +51,30 @@ sources/1 = SubResource("TileSetAtlasSource_iw27f")
 [node name="Map" type="TileMapLayer" node_paths=PackedStringArray("player", "inputs")]
 skew = -0.174533
 tile_set = SubResource("TileSet_urblq")
-script = ExtResource("2_e0an3")
+script = ExtResource("2_cti7x")
 player = NodePath("Player")
 inputs = NodePath("Player/Camera2D")
 
-[node name="LocationMarker" type="TileMapLayer" parent="." node_paths=PackedStringArray("map")]
+[node name="LocationMarker" type="TileMapLayer" parent="." node_paths=PackedStringArray("player", "inputs")]
 tile_set = SubResource("TileSet_e0an3")
-script = ExtResource("4_p5pve")
-map = NodePath("..")
+script = ExtResource("4_osvph")
+player = NodePath("../Player")
+inputs = NodePath("../Player/Camera2D")
 
-[node name="Player" parent="." instance=ExtResource("3_e0an3")]
+[node name="Player" parent="." instance=ExtResource("5_40mr5")]
 position = Vector2(-5, -25)
 skew = 0.174533
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
 position_smoothing_speed = 3.0
-script = ExtResource("6_iw27f")
+script = ExtResource("6_qprrh")
 
-[node name="Button" type="Button" parent="Player/Camera2D" node_paths=PackedStringArray("Root")]
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer" node_paths=PackedStringArray("Root")]
+offset_right = 120.0
+offset_bottom = 31.0
 text = "Change Scene!"
-script = ExtResource("7_71pa8")
-Root = NodePath("../../..")
+script = ExtResource("7_cti7x")
+Root = NodePath("../..")

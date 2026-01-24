@@ -1,6 +1,7 @@
 extends Camera2D
 
 var buffer = [0,0,0,0,0,0]
+var release = [0,0,0,0,0,0]
 var actions = []
 var map = InputMap
 
@@ -22,4 +23,7 @@ func assign_key(key:Key, event:StringName):
 func _input(event):
 	for i in range(actions.size()):
 		if event.is_action_pressed(actions[i]):
+			release[i] = 1
+		if event.is_action_released(actions[i]):
 			buffer[i] += 1
+			release[i] = 0

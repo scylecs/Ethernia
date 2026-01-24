@@ -2,13 +2,13 @@ extends Button
 
 @export var Root: TileMapLayer
 var screen_size = Vector2.ZERO
-var player_creation =  preload("res://player_creation.tscn").instantiate()
+var player_creation =  preload("res://src/player_creation/player_creation.tscn").instantiate()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	print(screen_size)
-	self.position = Vector2(screen_size.x / 2.7, screen_size.y / 2.5)
+	self.position = Vector2(screen_size.x / 1.2, screen_size.y / 1.1)
 	
 	self.pressed.connect(_scene_switcher)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
