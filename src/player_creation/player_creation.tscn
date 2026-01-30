@@ -15,10 +15,11 @@ script = ExtResource("2_cikci")
 
 [node name="Player" parent="CanvasLayer" instance=ExtResource("1_ibcdi")]
 z_index = 1
+position = Vector2(204, 87)
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 320.0
+offset_bottom = 201.0
 color = Color(0.769032, 0.722265, 0.386927, 1)
 
 [node name="Prev" type="Button" parent="CanvasLayer"]
@@ -50,6 +51,8 @@ grow_vertical = 2
 text = "> "
 
 [node name="Save" type="Button" parent="CanvasLayer"]
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 185.0
+offset_top = 134.0
+offset_right = 229.0
+offset_bottom = 165.0
 text = "Save"

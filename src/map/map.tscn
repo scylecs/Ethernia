@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvx4kpqcbasmd"]
+[gd_scene load_steps=13 format=3 uid="uid://dvx4kpqcbasmd"]
 
 [ext_resource type="Texture2D" uid="uid://43ggjeoo2c3u" path="res://Tiles1.png" id="1_4cvdr"]
 [ext_resource type="Script" uid="uid://1mtsl6miflec" path="res://src/map/map.gd" id="2_cti7x"]
 [ext_resource type="Texture2D" uid="uid://cwraaucxb2n1b" path="res://Tiles2.png" id="3_3ubge"]
 [ext_resource type="Script" uid="uid://c33rtyaicel5u" path="res://src/map/location_marker.gd" id="4_osvph"]
+[ext_resource type="Script" uid="uid://0r7sqtjbvpam" path="res://src/map/ghost_player.gd" id="5_3ubge"]
 [ext_resource type="PackedScene" uid="uid://cqoc5s5xqdcak" path="res://src/player.tscn" id="5_40mr5"]
 [ext_resource type="Script" uid="uid://2dyaxkj50c6a" path="res://src/map/inputs.gd" id="6_qprrh"]
 [ext_resource type="Script" uid="uid://7mqqob28oi0u" path="res://src/map/change_scene.gd" id="7_cti7x"]
@@ -48,18 +49,24 @@ tile_offset_axis = 1
 tile_size = Vector2i(50, 50)
 sources/1 = SubResource("TileSetAtlasSource_iw27f")
 
-[node name="Map" type="TileMapLayer" node_paths=PackedStringArray("player", "inputs")]
+[node name="Map" type="TileMapLayer" node_paths=PackedStringArray("player", "gplayer", "inputs")]
 skew = -0.174533
 tile_set = SubResource("TileSet_urblq")
 script = ExtResource("2_cti7x")
 player = NodePath("Player")
+gplayer = NodePath("GhostPlayer")
 inputs = NodePath("Player/Camera2D")
 
 [node name="LocationMarker" type="TileMapLayer" parent="." node_paths=PackedStringArray("player", "inputs")]
 tile_set = SubResource("TileSet_e0an3")
 script = ExtResource("4_osvph")
-player = NodePath("../Player")
+player = NodePath("../GhostPlayer")
 inputs = NodePath("../Player/Camera2D")
+
+[node name="GhostPlayer" type="Node2D" parent="."]
+position = Vector2(-1.9073486e-06, 0)
+scale = Vector2(0.9999999, 1)
+script = ExtResource("5_3ubge")
 
 [node name="Player" parent="." instance=ExtResource("5_40mr5")]
 position = Vector2(-5, -25)
@@ -73,8 +80,10 @@ script = ExtResource("6_qprrh")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Button" type="Button" parent="CanvasLayer" node_paths=PackedStringArray("Root")]
-offset_right = 120.0
-offset_bottom = 31.0
+offset_left = 141.0
+offset_top = 102.0
+offset_right = 261.0
+offset_bottom = 133.0
 text = "Change Scene!"
 script = ExtResource("7_cti7x")
 Root = NodePath("../..")

@@ -2,7 +2,7 @@ extends TileMapLayer
 
 var lasttile = []
 
-@export var player:Node2D
+@export var player: Node2D
 @export var inputs: Camera2D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

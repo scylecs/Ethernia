@@ -12,10 +12,12 @@ var tosnap = []
 var tile_pos: Vector2
 
 @export var player: Node2D
+@export var gplayer: Node2D
 @export var inputs: Camera2D
 
 func _ready():
 	player.moved = false
+	gplayer.position = (map_to_local(local_to_map(player.position)) - Vector2(-5, 25))
 	
 	# Set random seeds for noise variation
 	moisture.seed = randi()
@@ -32,7 +34,7 @@ func _process(_delta):
 
 	if right != 0 or up != 0:
 		tosnap.append(map_to_local(Vector2i(right, up)) - map_to_local(Vector2i(0, 0)))
-		player.moved = true
+		#player.moved = true
 		for i in range(inputs.buffer.size()):
 			inputs.buffer[i] = max(inputs.buffer[i] - 1, 0)
 
@@ -44,9 +46,10 @@ func _process(_delta):
 func _physics_process(_delta):
 	var tween = player.create_tween()
 	if tosnap.size() > 0:
-		tween.tween_property(player, "position", (map_to_local(local_to_map(player.position)) - Vector2(-5, 25)) + tosnap[0], 0.15)
+		gplayer.position = (map_to_local(local_to_map(gplayer.position)) - Vector2(-5, 25)) + tosnap[0]
+		tween.tween_property(player, "position", gplayer.position, 0.15)
 		tosnap.pop_at(0)
-		player.moved = false
+		#player.moved = false
 
 func generate_chunk(pos, unload):
 	for x in range(width):
